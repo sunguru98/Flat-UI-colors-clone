@@ -1,0 +1,50 @@
+.ColorPaletteNavbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 6vh;
+}
+
+.ColorPaletteNavbar-logo {
+  background: #ececec;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.ColorPaletteNavbar-Slider {
+  margin-left: 20px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ColorPaletteNavbar-Slider span {
+  width: 30%;
+}
+
+.rc-slider-track {
+  background: transparent;
+}
+
+.rc-slider-rail {
+  height: 5px;
+}
+
+.rc-slider-handle,
+.rc-slider-handle:focus,
+.rc-slider-handle:active,
+.rc-slider-handle:hover {
+  outline: none;
+  box-shadow: none;
+  background: green;
+  border: 2px solid green;
+}
+
+.ColorPaletteNavbar-Select {
+  margin-left: auto;
+  margin-right: 16px;
+}

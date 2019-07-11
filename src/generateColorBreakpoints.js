@@ -42,7 +42,8 @@ const generateColorBreakpoints = paletteObj => {
       newColorPalette.colors[colorLevels[index]].push({
         name: `${colorObj.name}-${colorLevels[index]}`,
         id: colorObj.name.toLowerCase().replace(/ /g, '-'),
-        hex: generatedColor,
+        'hex#': generatedColor,
+        hex: generatedColor.replace('#', ''),
         rgb: chroma(generatedColor).css(),
         rgba: chroma(generatedColor).css().replace('rgb', 'rgba').replace(')', ',1.0)')
       })
