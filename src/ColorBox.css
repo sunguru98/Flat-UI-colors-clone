@@ -1,0 +1,93 @@
+.ColorBox {
+  width: 20%;
+  height: 25%;
+  display: inline-block;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  margin: 0;
+}
+
+.ColorBox-overlay {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.1);
+  position: absolute;
+}
+
+.ColorBox-overlay.show {
+  z-index: 10;
+  opacity: 1;
+  transform: scale(50);
+  transition: transform 1s;
+}
+
+.ColorBox-copy {
+  background: rgba(255, 255, 255, 0.35);
+  padding: 10px 0;
+  width: 110px;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ColorBox:hover .ColorBox-copy {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.4s;
+}
+
+.ColorBox-more {
+  background: rgba(255, 255, 255, 0.418);
+  padding: 5px 20px;
+  display: inline-block;
+  bottom: 0;
+  letter-spacing: 1px;
+}
+
+.ColorBox-box {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.ColorBox-name {
+  flex: 1;
+  padding: 10px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.ColorBox-copy-msg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  color: #fff;
+  font-size: 30px;
+  text-transform: uppercase;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.1);
+  opacity: 0;
+}
+
+.ColorBox-copy-msg.show {
+  opacity: 1;
+  transform: scale(1);
+  transition: .1s ease;
+  transition-delay: .2s;
+  z-index: 11;
+}
