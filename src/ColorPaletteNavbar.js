@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import './ColorPaletteNavbar.css'
+import { Link } from 'react-router-dom'
+
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import SnackBar from '@material-ui/core/Snackbar'
@@ -31,7 +33,7 @@ class ColorPaletteNavbar extends Component {
     return (
       <header className="ColorPaletteNavbar">
         <div className="ColorPaletteNavbar-logo">
-          <a href="https://www.google.com" style={{textDecoration: 'none', color: 'black'}}>reactcolorpicker</a>
+          <Link to='/' style={{textDecoration: 'none', color: 'black'}}>reactcolorpicker</Link>
         </div>
         <div className="ColorPaletteNavbar-Slider">
           <span>Level: {this.props.colorLevel}</span>
