@@ -1,6 +1,9 @@
-.ColorBox {
+.switchMore {
   width: 20%;
   height: 25%;
+}
+
+.ColorBox {
   display: inline-block;
   cursor: pointer;
   text-transform: uppercase;

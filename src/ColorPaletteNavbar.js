@@ -35,10 +35,12 @@ class ColorPaletteNavbar extends Component {
         <div className="ColorPaletteNavbar-logo">
           <Link to='/' style={{textDecoration: 'none', color: 'black'}}>reactcolorpicker</Link>
         </div>
+        { this.props.showSlider && 
         <div className="ColorPaletteNavbar-Slider">
           <span>Level: {this.props.colorLevel}</span>
           <Slider defaultValue={this.props.colorLevel} min={100} max={900} onChange={this.props.onChange} step={100} />
         </div>
+        }
         <div className="ColorPaletteNavbar-Select">
           <Select value={this.state.colorFormat} onChange={this.handleChange}>
             <MenuItem value="hex#">HEX# - #ffffff</MenuItem>

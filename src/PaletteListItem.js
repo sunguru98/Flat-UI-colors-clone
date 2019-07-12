@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles'
 
 const styles = {
   PaletteListItem: {
-    height: '200px',
+    height: '250px',
     background: 'white',
     padding: '8px',
     borderRadius: '6px',
