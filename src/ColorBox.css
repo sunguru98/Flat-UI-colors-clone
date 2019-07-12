@@ -3,6 +3,9 @@
   height: 25%;
 }
 
+.lightColor { color: white }
+.darkColor { color: black }
+
 .ColorBox {
   display: inline-block;
   cursor: pointer;
