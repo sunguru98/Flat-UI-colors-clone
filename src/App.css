@@ -1,5 +1,5 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
   background: rgb(51, 53, 182);
 }
 

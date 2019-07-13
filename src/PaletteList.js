@@ -7,10 +7,12 @@ const styles = {
   PaletteList: {
     width: '1200px',
     margin: '0 auto',
+    padding: '1% 0'
   },
   'PaletteList-colors': {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateRows: 'repeat(4, 1fr)',
     gridGap: '10px 50px'
   }
 }

@@ -6,7 +6,7 @@ class NewPaletteColorBox extends Component {
     this.state = {  }
   }
   render() { 
-    return ( <div style={{ background: this.props.color }}>{this.props.color}</div> );
+    return ( <div style={{ background: this.props.color.color }}>{ this.props.color.name }</div> );
   }
 }
  

@@ -14,7 +14,8 @@ const styles = {
     overflow: 'hidden',
     height: '85%',
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)'
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gridTemplateRows: 'repeat(4, 1fr)'
   },
   'PaletteListItem-info': {
     textDecoration: 'none',
