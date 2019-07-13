@@ -2,6 +2,8 @@ import seedPalettes from './seedPalettes'
 import generateColorBreakpoints from './generateColorBreakpoints'
 import React from 'react';
 import './App.css'
+
+import CreateNewPalette from './CreateNewPalette'
 import ColorPalette from './ColorPalette'
 import PaletteList from './PaletteList'
 import SingleColorPalette from './SingleColorPalette'
@@ -16,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route exact path='/palette/new' render={routeParams => <CreateNewPalette />}/>
         <Route exact path='/' render={routeParams => <PaletteList palettes={seedPalettes} {...routeParams} />}/>
         <Route exact path='/palette/:id' render={routeParams => <ColorPalette pallete={findPalette(routeParams.match.params.id)}/>}/>
         <Route exact path='/palette/:paletteId/:colorId' render={routeParams => <SingleColorPalette pallete={findPalette(routeParams.match.params.paletteId)} colorId={routeParams.match.params.colorId} />}/>

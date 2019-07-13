@@ -33,7 +33,7 @@ class ColorBox extends Component {
             <span className={`ColorBox-name ${isDarkColor && 'lightColor'}`}>{this.props.name}</span>
             { this.props.showMoreButton && <Link style={{ color: 'black' }} to={`/palette/${this.props.paletteId}/${this.props.colorId}`} onClick={event => event.stopPropagation()}><span className="ColorBox-more">MORE</span></Link>}
           </div>
-          <button className="ColorBox-copy">Copy</button>
+          <button className={`ColorBox-copy ${isLightColor && 'darkColor'}`}>Copy</button>
         </div>
       </CopyClipboard>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PaletteListItem from './PaletteListItem'
 import { withStyles } from '@material-ui/styles'
+import { Link } from 'react-router-dom'
 
 const styles = {
   PaletteList: {
@@ -29,7 +30,10 @@ class PaletteList extends Component {
     const { classes } = this.props
     return (
       <div className={classes.PaletteList}>
-        <h1 style={{ padding: '30px 0', color: 'white' }}>React color picker</h1>
+        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1 style={{ padding: '30px 0', color: 'white' }}>React color picker</h1>
+          <Link style={{ color: 'white' }} to="/palette/new">Create palette</Link>
+        </nav>
         <div className={classes['PaletteList-colors']}>
         { this.props.palettes.map(palette => <PaletteListItem key={palette.id} palette={palette} handleClick={() => this.goToPallete(palette.id)}/>) }
         </div>

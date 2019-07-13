@@ -3,8 +3,8 @@
   height: 25%;
 }
 
-.lightColor { color: white }
-.darkColor { color: black }
+.lightColor { color: white !important }
+.darkColor { color: black !important }
 
 .ColorBox {
   display: inline-block;
