@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import DraggableColorBoxes from './DraggableColorBoxes'
+
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -13,7 +15,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from '@material-ui/core/Button'
 
 import { ChromePicker } from 'react-color'
-import NewPaletteColorBox from "./NewPaletteColorBox";
+
+import arrayMove from 'array-move'
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 const drawerWidth = 340;
@@ -26,6 +29,8 @@ class NewPaletteForm extends Component {
     this.addColor = this.addColor.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handlePaletteSave = this.handlePaletteSave.bind(this)
+    this.deleteColor = this.deleteColor.bind(this)
+    this.onSortEnd = this.onSortEnd.bind(this)
   }
 
   componentDidMount () {
@@ -45,6 +50,14 @@ class NewPaletteForm extends Component {
     this.props.savePalette(paletteObj)
     this.props.history.push('/')
   }
+
+  onSortEnd ({oldIndex, newIndex}) {
+    this.setState(({colors}) => ({
+      colors: arrayMove(colors, oldIndex, newIndex),
+    }));
+  }
+
+  deleteColor (colorName) { this.setState(({ colors }) => { return { colors: colors.filter(color => color.name !== colorName) } })}
   handleChange (event) { this.setState({ [event.target.name]: event.target.value })}
   handleDrawerOpen = () => { this.setState({ open: true }) }
   handleDrawerClose = () => { this.setState({ open: false }) }
@@ -122,10 +135,10 @@ class NewPaletteForm extends Component {
         className={classNames(classes.content, {
           [classes.contentShift]: open
         })}
-        style={{ marginTop: '64px', height: 'calc(100vh - 64px)', padding: '0', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gridTemplateRows: 'repeat(4, 1fr)' }}
+        style={{ marginTop: '64px', height: 'calc(100vh - 64px)', padding: '0' }}
       >
         {/* <div className={classes.drawerHeader} /> */}
-        {this.state.colors.map((color, index) => <NewPaletteColorBox key={`${color}-${index}`} color={color} />)}
+        <DraggableColorBoxes onSortEnd={this.onSortEnd} axis='xy' colors={this.state.colors} deleteColor={this.deleteColor}/>
       </main> 
     </div>
   );
