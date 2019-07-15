@@ -30,7 +30,7 @@ class NewPaletteForm extends Component {
     this.state = { 
       open: false, 
       currentColor: 'red', 
-      colors: this.props.palettes[0].colors, 
+      colors: this.props.palettes[0].colors, // default colors are material-ui colors
       newColorName: '',
       isFormShowing: false
     }
@@ -50,13 +50,9 @@ class NewPaletteForm extends Component {
     ValidatorForm.addValidationRule('isColorUnique', () => this.state.colors.every(color => color.color !== this.state.currentColor))
   }
 
-  handlePaletteSave (paletteName) {
-    let paletteObj = {
-      paletteName,
-      id: paletteName.toLowerCase().replace(/ /g, '-'),
-      emoji: '👑',
-      colors: this.state.colors
-    }
+  handlePaletteSave (paletteObj) {
+    paletteObj.id = paletteObj.paletteName.toLowerCase().replace(/ /g, '-')
+    paletteObj.colors = this.state.colors
     this.props.savePalette(paletteObj)
     this.props.history.push('/')
   }
