@@ -26,14 +26,14 @@ class ColorBox extends Component {
         <div className={`ColorBox ${this.props.showMoreButton ? 'switchMore' : ''}`} style={{ background: this.props.color.length === 6 ? `#${this.props.color}` : this.props.color }}>
           <div className={`ColorBox-overlay ${this.state.isCopied && 'show'}`} style={{ background: this.props.color.length === 6 ? `#${this.props.color}` : this.props.color }}/>
           <div className={`ColorBox-copy-msg ${this.state.isCopied && 'show'}`}>
-            <h1 className={isLightColor && 'darkColor'}>Copied !</h1>
-            <p style={{marginTop: '10px'}} className={isLightColor && 'darkColor'}>{this.props.color}</p>
+            <h1 className={isLightColor ? 'darkColor' : undefined}>Copied !</h1>
+            <p style={{marginTop: '10px'}} className={isLightColor ? 'darkColor' : undefined}>{this.props.color}</p>
           </div>
           <div className="ColorBox-box">
             <span className={`ColorBox-name ${isDarkColor && 'lightColor'}`}>{this.props.name}</span>
             { this.props.showMoreButton && <Link style={{ color: 'black' }} to={`/palette/${this.props.paletteId}/${this.props.colorId}`} onClick={event => event.stopPropagation()}><span className="ColorBox-more">MORE</span></Link>}
           </div>
-          <button className={`ColorBox-copy ${isLightColor && 'darkColor'}`}>Copy</button>
+          <button className={`ColorBox-copy ${isLightColor ? 'darkColor' : undefined}`}>Copy</button>
         </div>
       </CopyClipboard>
     );

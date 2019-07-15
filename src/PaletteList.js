@@ -29,7 +29,7 @@ class PaletteList extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, deletePalette } = this.props
     return (
       <div className={classes.PaletteList}>
         <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -37,7 +37,7 @@ class PaletteList extends Component {
           <Link style={{ color: 'white' }} to="/palette/new">Create palette</Link>
         </nav>
         <div className={classes['PaletteList-colors']}>
-        { this.props.palettes.map(palette => <PaletteListItem key={palette.id} palette={palette} handleClick={() => this.goToPallete(palette.id)}/>) }
+        { this.props.palettes.map(palette => <PaletteListItem deletePalette={deletePalette} key={palette.id} palette={palette} handleClick={() => this.goToPallete(palette.id)}/>) }
         </div>
       </div>
     );

@@ -13,9 +13,10 @@ import { Switch, Route } from 'react-router-dom'
 class App extends Component {
   constructor (props) {
     super(props)
-    this.state = { palettes: seedPalettes }
+    this.state = { palettes: JSON.parse(localStorage.getItem('palettes')) || seedPalettes }
     this.findPalette = this.findPalette.bind(this)
     this.savePalette = this.savePalette.bind(this)
+    this.deletePalette = this.deletePalette.bind(this)
   }
 
   findPalette (paletteId) {
@@ -23,16 +24,23 @@ class App extends Component {
   }
 
   savePalette (paletteObj) {
-    console.log(paletteObj)
-    this.setState(({ palettes }) => { return { palettes: [...palettes, paletteObj]} })
+    this.setState(({ palettes }) => { return { palettes: [...palettes, paletteObj]} }, () => {
+      localStorage.setItem('palettes', JSON.stringify(this.state.palettes))
+    })
   }
+
+  deletePalette (paletteId) {
+    this.setState(({ palettes }) => { return { palettes: palettes.filter(palette => palette.id !== paletteId) }}, () => {
+      localStorage.setItem('palettes', JSON.stringify(this.state.palettes))
+    })
+  } 
 
   render () {
     return (
       <div className="App">
         <Switch>
           <Route exact path='/palette/new' render={routeParams => <CreateNewPalette palettes={this.state.palettes} {...routeParams} savePalette={this.savePalette} />}/>
-          <Route exact path='/' render={routeParams => <PaletteList palettes={this.state.palettes} {...routeParams} />}/>
+          <Route exact path='/' render={routeParams => <PaletteList palettes={this.state.palettes} {...routeParams} deletePalette={this.deletePalette} />}/>
           <Route exact path='/palette/:id' render={routeParams => <ColorPalette pallete={this.findPalette(routeParams.match.params.id)}/>}/>
           <Route exact path='/palette/:paletteId/:colorId' render={routeParams => <SingleColorPalette pallete={this.findPalette(routeParams.match.params.paletteId)} colorId={routeParams.match.params.colorId} />}/>
         </Switch>
