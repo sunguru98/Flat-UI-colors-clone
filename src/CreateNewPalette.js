@@ -18,6 +18,7 @@ import mediaQueries from './mediaQueries'
 import { ChromePicker } from 'react-color'
 
 import arrayMove from 'array-move'
+import seedPalettes from './seedPalettes'
 import { Link } from 'react-router-dom'
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
@@ -30,7 +31,7 @@ class NewPaletteForm extends Component {
     this.state = { 
       open: false, 
       currentColor: 'red', 
-      colors: this.props.palettes[0].colors, // default colors are material-ui colors
+      colors: seedPalettes[0].colors, // default colors are material-ui colors
       newColorName: '',
       isFormShowing: false
     }
@@ -75,12 +76,21 @@ class NewPaletteForm extends Component {
   addColor () { this.setState((curState) => { return { colors: [...curState.colors, { color: curState.currentColor, name: curState.newColorName }], newColorName: '' } }) }
 
   pickRandomColor () {
-    const allColors = this.props.palettes.map(palette => palette.colors).flat(),
-          randomColorIndex = Math.floor(Math.random() * allColors.length),
-          randomColor = allColors[randomColorIndex]
+    const palettes = this.props.palettes.length > 0 ? this.props.palettes : seedPalettes,
+          allColors = palettes.map(palette => palette.colors).flat()
+    let randomColorIndex,
+        randomColor,
+        isDuplicateColor = true
+    while (isDuplicateColor) {
+      randomColorIndex = Math.floor(Math.random() * allColors.length)
+      randomColor = allColors[randomColorIndex]
+      isDuplicateColor = this.checkEqual(randomColor)
+    }
     this.setState(({ colors }) => { return { colors: [...colors, randomColor] } })
   }
-
+  checkEqual (randomColor) {
+    return this.state.colors.some(color => color.name === randomColor.name)
+  }
   clearPalette () {
     this.setState({ colors: [] })
   }

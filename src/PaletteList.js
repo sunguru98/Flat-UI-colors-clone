@@ -3,8 +3,18 @@ import PaletteListItem from './PaletteListItem'
 import { withStyles } from '@material-ui/styles'
 import mediaQueries from './mediaQueries'
 import { Link } from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const styles = {
+  '@global': {
+    '.fade-exit': {
+      opacity: 1
+    },
+    '.fade-exit-active': {
+      opacity: 0,
+      transition: 'opacity .3s ease-in-out'
+    }
+  },
   PaletteList: {
     maxWidth: '1200px',
     margin: '0 auto',
@@ -42,13 +52,15 @@ class PaletteList extends Component {
     const { classes, deletePalette } = this.props
     return (
       <div className={classes.PaletteList}>
-        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ padding: '30px 0', color: 'white' }}>React color picker</h1>
-          <Link style={{ color: 'white' }} to="/palette/new">Create palette</Link>
-        </nav>
-        <div className={classes['PaletteList-colors']}>
-        { this.props.palettes.map(palette => <PaletteListItem deletePalette={deletePalette} key={palette.id} palette={palette} handleClick={() => this.goToPallete(palette.id)}/>) }
-        </div>
+          <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h1 style={{ padding: '30px 0', color: 'white' }}>React color picker</h1>
+            <Link style={{ color: 'white' }} to="/palette/new">Create palette</Link>
+          </nav>
+          <TransitionGroup className={classes['PaletteList-colors']}>
+            { this.props.palettes.map(palette => <CSSTransition key={palette.id} classNames='fade' timeout={300}>
+              <PaletteListItem deletePalette={deletePalette} palette={palette} handleClick={this.goToPallete}/>
+            </CSSTransition>) }
+          </TransitionGroup>
       </div>
     );
   }

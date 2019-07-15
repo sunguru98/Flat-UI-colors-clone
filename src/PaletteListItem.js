@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { withStyles } from '@material-ui/styles'
+import mediaQueries from './mediaQueries'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const styles = {
@@ -41,11 +42,14 @@ const styles = {
     padding: '10px',
     boxSizing: 'content-box',
     zIndex: '13',
-    opacity: '0'
+    opacity: '0',
+    [mediaQueries.down('xs')]: {
+      opacity: '1'
+    }
   }
 }
 
-class PaletteListItem extends Component {
+class PaletteListItem extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {}
@@ -59,9 +63,10 @@ class PaletteListItem extends Component {
   }
 
   render () {
+    console.log('Rendering again')
     const { classes, palette, handleClick } = this.props
     return (
-      <div className={classes['PaletteListItem']} onClick={handleClick}>
+      <div className={classes['PaletteListItem']} onClick={() => handleClick(palette.id)}>
         <DeleteIcon onClick={this.handleClick} className={classes['PaletteListItem-delete']} style={{ transition: 'all .3s ease-in-out' }}/>
         <div className={classes['PaletteListItem-colors']}>
           { palette.colors.map((color, index) => <div key={`${color}-${index}`} style={{ background: color.color}}></div>) }
