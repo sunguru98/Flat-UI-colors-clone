@@ -1,10 +1,36 @@
 import React, {Component} from 'react';
 import './ColorBox.css'
+import mediaQueries from './mediaQueries'
+
 import CopyClipboard from 'react-copy-to-clipboard'
 
 import {Link} from 'react-router-dom'
+
 import chroma from 'chroma-js'
 
+import { withStyles } from '@material-ui/styles'
+
+const styles = {
+  ColorBox: {
+    display: 'inline-block',
+    cursor: 'pointer',
+    textTransform: 'uppercase',
+    position: 'relative',
+    margin: 0,
+    [mediaQueries.down('md')]: {
+      width: props => props.showMoreButton && '25%',
+      height: props => props.showMoreButton && '30%'
+    },
+    [mediaQueries.down('sm')]: {
+      width: props => props.showMoreButton && '50%',
+      height: props => props.showMoreButton && '20%'
+    },
+    [mediaQueries.down('xs')]: {
+      width: props => props.showMoreButton && '100%',
+      height: props => props.showMoreButton && '10%'
+    }
+  }
+}
 class ColorBox extends Component {
   constructor (props) {
     super(props);
@@ -19,11 +45,12 @@ class ColorBox extends Component {
   }
 
   render() {
+    const { classes } = this.props
     const isDarkColor = chroma(this.props.color).luminance() <= 0.1
     const isLightColor = chroma(this.props.color).luminance() >= 0.7
     return ( 
       <CopyClipboard text={this.props.color} onCopy={this.copyHexColor}>
-        <div className={`ColorBox ${this.props.showMoreButton ? 'switchMore' : ''}`} style={{ background: this.props.color.length === 6 ? `#${this.props.color}` : this.props.color }}>
+        <div className={`${classes['ColorBox']} ${this.props.showMoreButton ? 'switchMore' : ''}`} style={{ background: this.props.color.length === 6 ? `#${this.props.color}` : this.props.color }}>
           <div className={`ColorBox-overlay ${this.state.isCopied && 'show'}`} style={{ background: this.props.color.length === 6 ? `#${this.props.color}` : this.props.color }}/>
           <div className={`ColorBox-copy-msg ${this.state.isCopied && 'show'}`}>
             <h1 className={isLightColor ? 'darkColor' : undefined}>Copied !</h1>
@@ -40,4 +67,4 @@ class ColorBox extends Component {
   }
 }
 
-export default ColorBox;
+export default withStyles(styles)(ColorBox);

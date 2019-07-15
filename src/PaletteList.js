@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
 import PaletteListItem from './PaletteListItem'
 import { withStyles } from '@material-ui/styles'
+import mediaQueries from './mediaQueries'
 import { Link } from 'react-router-dom'
 
 const styles = {
   PaletteList: {
-    width: '1200px',
+    maxWidth: '1200px',
     margin: '0 auto',
-    padding: '1% 0'
+    padding: '1% 0',
+    [mediaQueries.down('lg')]: {
+      padding: '1% 20px'
+    }
   },
   'PaletteList-colors': {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
+    [mediaQueries.down('lg')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)'
+    },
+    [mediaQueries.down('xs')]: {
+      gridTemplateColumns: 'repeat(1, 1fr)'
+    },
     gridTemplateRows: 'repeat(4, 1fr)',
     gridGap: '10px 50px'
   }

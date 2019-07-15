@@ -6,14 +6,6 @@
 .lightColor { color: white !important }
 .darkColor { color: black !important }
 
-.ColorBox {
-  display: inline-block;
-  cursor: pointer;
-  text-transform: uppercase;
-  position: relative;
-  margin: 0;
-}
-
 .ColorBox-overlay {
   width: 100%;
   height: 100%;

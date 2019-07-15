@@ -1,32 +1,3 @@
-.ColorPaletteNavbar {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 6vh;
-  background: white
-}
-
-.ColorPaletteNavbar-logo {
-  background: #ececec;
-  height: 100%;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-}
-
-.ColorPaletteNavbar-Slider {
-  margin-left: 20px;
-  width: 400px;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.ColorPaletteNavbar-Slider span {
-  width: 30%;
-}
-
 .rc-slider-track {
   background: transparent;
 }

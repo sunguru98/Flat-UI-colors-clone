@@ -5,22 +5,27 @@ import ColorBox from './ColorBox'
 
 import { withStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
+import mediaQueries from './mediaQueries'
 
 const styles = {
   'SingleColorPalette-colors': {
     height: '90%',
     display: 'grid',
     gridTemplateColumns: 'repeat(5, 1fr)',
-    gridAutoRows: 'repeat(2, 1fr)'
+    gridAutoRows: 'repeat(2, 1fr)',
+    [mediaQueries.down('md')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)'
+    },
+    [mediaQueries.down('xs')]: {
+      gridTemplateColumns: 'repeat(1, 1fr)'
+    }
   }
 }
 
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this._singleColorLevels = this.extractColorOfDifferentShades(this.props.pallete, this.props.colorId)
-    console.log(this._singleColorLevels)
     this.state = { colorFormat: 'hex#' }
     this.handleColorFormat = this.handleColorFormat.bind(this)
   }

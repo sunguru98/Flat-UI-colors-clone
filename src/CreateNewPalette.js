@@ -14,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from '@material-ui/core/Button'
-
+import mediaQueries from './mediaQueries'
 import { ChromePicker } from 'react-color'
 
 import arrayMove from 'array-move'
@@ -109,10 +109,10 @@ class NewPaletteForm extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant='h6' color='inherit' noWrap>
-              Persistent drawer
+              Create a palette
             </Typography>
           </div>
-          <div style={{ display: 'flex', marginRight: '20px' }}>
+          <div className={classes.navBtns}>
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Button variant='contained' color='secondary' style={{marginRight: '10px'}}>Go back</Button>
             </Link>
@@ -181,6 +181,16 @@ const styles = theme => ({
     display: "flex",
     background: 'white'
   },
+  navBtns: {
+    display: 'flex', marginRight: '20px',
+    [mediaQueries.down('xs')]: { 
+      '& span': {
+        fontSize: '11px'
+      },
+      '& button': { padding: 5 },
+      marginRight: 10 
+    }
+  },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -200,7 +210,8 @@ const styles = theme => ({
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 20
+    marginRight: 20,
+    [mediaQueries.down('xs')]: { marginLeft: 0, marginRight: 0, padding: 8 }
   },
   hide: {
     display: "none"

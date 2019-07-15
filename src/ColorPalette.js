@@ -21,7 +21,7 @@ class ColorPalette extends Component {
 
   render() {
     return (
-      <div className="ColorPalette" style={{ height: '100vh', overflow: 'hidden' }}>
+      <div className="ColorPalette" style={{ height: '100vh' }}>
         <ColorPaletteNavbar showSlider colorLevel={this.state.colorLevel} onChange={this.handleChange} changeColorFormat={this.changeColorFormat}/>
         <div className="ColorPalette-colors" style={{ height: '90%' }}>
           {this.props.pallete.colors[this.state.colorLevel].map(color => <ColorBox key={color.name} colorId={color.id} paletteId={this.props.pallete.id} color={color[this.state.colorFormat]} name={color.name} showMoreButton/>)}
