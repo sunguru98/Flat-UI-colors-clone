@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import DraggableColorBoxes from './DraggableColorBoxes'
+import PaletteMetaForm from './PaletteMetaForm'
 
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -26,7 +27,13 @@ class NewPaletteForm extends Component {
   static defaultProps = { maxColors: 20 }
   constructor (props) {
     super(props)
-    this.state = { open: false, currentColor: 'red', colors: this.props.palettes[0].colors, newColorName: '', newPaletteName: '' }
+    this.state = { 
+      open: false, 
+      currentColor: 'red', 
+      colors: this.props.palettes[0].colors, 
+      newColorName: '',
+      isFormShowing: false
+    }
     this.changeCurrentColor = this.changeCurrentColor.bind(this)
     this.addColor = this.addColor.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -35,16 +42,15 @@ class NewPaletteForm extends Component {
     this.onSortEnd = this.onSortEnd.bind(this)
     this.pickRandomColor = this.pickRandomColor.bind(this)
     this.clearPalette = this.clearPalette.bind(this)
+    this.handleIsFormShowing = this.handleIsFormShowing.bind(this)
   }
 
   componentDidMount () {
     ValidatorForm.addValidationRule('isColorNameUnique', value => this.state.colors.every(color => color.name.toLowerCase() !== value.toLowerCase()))
     ValidatorForm.addValidationRule('isColorUnique', () => this.state.colors.every(color => color.color !== this.state.currentColor))
-    ValidatorForm.addValidationRule('isPaletteNameUnique', paletteName => this.props.palettes.every(palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase()))
   }
 
-  handlePaletteSave () {
-    const paletteName = this.state.newPaletteName
+  handlePaletteSave (paletteName) {
     let paletteObj = {
       paletteName,
       id: paletteName.toLowerCase().replace(/ /g, '-'),
@@ -53,6 +59,10 @@ class NewPaletteForm extends Component {
     }
     this.props.savePalette(paletteObj)
     this.props.history.push('/')
+  }
+
+  handleIsFormShowing (booleanValue) {
+    this.setState({ isFormShowing: booleanValue })
   }
 
   onSortEnd ({oldIndex, newIndex}) {
@@ -107,20 +117,13 @@ class NewPaletteForm extends Component {
             </Typography>
           </div>
           <div style={{ display: 'flex', marginRight: '20px' }}>
-            <ValidatorForm onSubmit={this.handlePaletteSave}>
-            <TextValidator
-              name='newPaletteName'
-              value={this.state.newPaletteName} 
-              onChange={ this.handleChange }
-              validators={['required', 'isPaletteNameUnique']}
-              errorMessages={['Palette name is required', 'Palette name must be unique']} />
-            <Button type='submit' variant='contained' color='primary'>Save Palette</Button>
-          </ValidatorForm>
-          <Link to='/' style={{ textDecoration: 'none' }}>
-            <Button variant='contained' color='secondary'>Go back</Button>
-          </Link>
+            <Link to='/' style={{ textDecoration: 'none' }}>
+              <Button variant='contained' color='secondary' style={{marginRight: '10px'}}>Go back</Button>
+            </Link>
+            <Button variant='contained' color='primary' onClick={() => this.handleIsFormShowing(true)}>Save Palette</Button>
           </div>
         </Toolbar>
+        { this.state.isFormShowing && <PaletteMetaForm handleFormState={this.handleIsFormShowing} palettes={this.props.palettes} isFormShowing={this.state.isFormShowing} handleSubmit={this.handlePaletteSave} /> }
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -156,7 +159,7 @@ class NewPaletteForm extends Component {
             <Button 
               disabled={isPaletteFull} 
               type='submit' 
-              variant='contained' color={'primary'}
+              variant='contained'
               style={{ display: 'block', width: '100%', marginTop: '30px', padding: '15px 0', fontSize: '20px', background: !isPaletteFull ? this.state.currentColor : 'rgba(0, 0, 0, 0.5)', color: 'white' }}>
               { !isPaletteFull ? 'Add Color' : 'Palette Full' }
             </Button>
@@ -169,7 +172,6 @@ class NewPaletteForm extends Component {
         })}
         style={{ marginTop: '64px', height: 'calc(100vh - 64px)', padding: '0' }}
       >
-        {/* <div className={classes.drawerHeader} /> */}
         <DraggableColorBoxes onSortEnd={this.onSortEnd} axis='xy' colors={this.state.colors} deleteColor={this.deleteColor}/>
       </main> 
     </div>
